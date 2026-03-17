@@ -1,4 +1,32 @@
 {
-    "//": "manifest.json - configuration file for the extension",
-    "//": "tells chrome about the extension"
+  "manifest_version": 3,
+  "name": "ReFocus",
+  "version": "0.1",
+  "description": "A productivity extension to help manage your digital habits",
+
+  "permissions": [
+    "storage",
+    "tabs",
+    "webNavigation",
+    "alarms",
+    "declarativeNetRequest"
+  ],
+
+  "host_permissions": ["<all_urls>"],
+
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+
+  "action": {
+    "default_popup": "popup/popup.html"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/*", "*://*.instagram.com/*"],
+      "js": ["contentScript.js"]
+    }
+  ]
 }
