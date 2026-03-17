@@ -61,3 +61,18 @@ export async function getFullUsageLog() {
     const result = await chrome.storage.local.get("usageLog");
     return result.usageLog || {};
 }
+
+export async function isBlocked(domain) {
+  const result = await chrome.storage.local.get("blockedSites");
+  const blocked = result.blockedSites || [];
+  return blocked.includes(domain);
+}
+
+export async function setBlocked(domain) {
+  const result = await chrome.storage.local.get("blockedSites");
+  const blocked = result.blockedSites || [];
+  if (!blocked.includes(domain)) {
+    blocked.push(domain);
+    await chrome.storage.local.set({ blockedSites: blocked });
+  }
+}
